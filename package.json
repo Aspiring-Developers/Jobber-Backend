@@ -20,10 +20,13 @@
   },
   "homepage": "https://github.com/Aspiring-Developers/Jobber-Backend#readme",
   "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.10",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
+    "mongodb": "^5.4.0",
     "mongoose": "^7.1.0",
     "mongoose-unique-validator": "^4.0.0"
   },

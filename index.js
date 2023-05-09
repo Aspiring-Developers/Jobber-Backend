@@ -1,12 +1,19 @@
+const config = require("./utils/config");
 const express = require("express");
-const cors = require("cors");
 const app = express();
+const cors = require("cors");
 
 app.use(cors());
 
-app.get("/", (req, res) => res.send("Welcome!"));
+const userRouter = require("./controllers/UserRouter");
+app.use(express.json());
 
-const PORT = 3001
-app.listen(PORT, ()=> {
-  console.log("app running on port ", PORT)
-})
+require("./db");
+
+app.get("/", (req, res) => res.send("Welcome!"));
+app.use("/api/users", userRouter)
+
+const PORT = 3001;
+app.listen(PORT, () => {
+  console.log("app running on port ", PORT);
+});
