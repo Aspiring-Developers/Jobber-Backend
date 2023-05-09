@@ -11,9 +11,26 @@ router.get("", async (request, response) => {
 
 router.post("", async (request, response) => {
   const { firstName, lastName, password, email } = request.body;
-  
+  const salt = 10;
+  const passwordHash = await bcrypt.hash(password, salt);
 
-  return response.json({firstName});
+  const newUser = {
+    firstName,
+    lastName,
+    passwordHash,
+    email,
+  };
+
+  const user = new User(newUser);
+  try {
+  await user.save();
+    
+  }
+  catch(e){
+    return response.status(400).json({error: e.message})
+  }
+
+  return response.status(201).json({ firstName, lastName, email }).end();
 });
 
 module.exports = router;
