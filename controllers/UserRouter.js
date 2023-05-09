@@ -13,7 +13,7 @@ router.post("", async (request, response) => {
   const { firstName, lastName, password, email } = request.body;
   
 
-  return response.json(body);
+  return response.json({firstName});
 });
 
 module.exports = router;
