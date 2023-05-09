@@ -44,6 +44,11 @@ const schema = Schema({
       ref: "Feed",
     },
   ],
+  membership: {
+    type: String,
+    enum: ["basic", "premium"],
+    default: "basic"
+  },
 });
 
 schema.plugin(uniqueValidator);
