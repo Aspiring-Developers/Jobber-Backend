@@ -11,7 +11,7 @@ router.get("", async (request, response) => {
 
 router.post("", async (request, response) => {
   const { firstName, lastName, password, email } = request.body;
-  const salt = bcrypt.genSaltSync(10)
+  const salt = bcrypt.genSaltSync(10);
   if (!password) {
     return response
       .status(400)
@@ -33,7 +33,7 @@ router.post("", async (request, response) => {
     return response.status(400).json({ error: e.message });
   }
 
-  return response.status(201).json({ firstName, lastName, email }).end();
+  return response.status(201).json(user).end();
 });
 
 module.exports = router;
