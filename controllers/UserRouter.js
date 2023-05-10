@@ -11,7 +11,12 @@ router.get("", async (request, response) => {
 
 router.post("", async (request, response) => {
   const { firstName, lastName, password, email } = request.body;
-  const salt = bcrypt.genSaltSync(10);
+  const salt = bcrypt.genSaltSync(10)
+  if (!password) {
+    return response
+      .status(400)
+      .json({ message: "Password field cannot be empty" });
+  }
   const passwordHash = await bcrypt.hashSync(password, salt);
 
   const newUser = {
