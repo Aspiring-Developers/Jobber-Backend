@@ -11,8 +11,8 @@ router.get("", async (request, response) => {
 
 router.post("", async (request, response) => {
   const { firstName, lastName, password, email } = request.body;
-  const salt = 10;
-  const passwordHash = await bcrypt.hash(password, salt);
+  const salt = bcrypt.genSaltSync(10);
+  const passwordHash = await bcrypt.hashSync(password, salt);
 
   const newUser = {
     firstName,
@@ -23,11 +23,9 @@ router.post("", async (request, response) => {
 
   const user = new User(newUser);
   try {
-  await user.save();
-    
-  }
-  catch(e){
-    return response.status(400).json({error: e.message})
+    await user.save();
+  } catch (e) {
+    return response.status(400).json({ error: e.message });
   }
 
   return response.status(201).json({ firstName, lastName, email }).end();
