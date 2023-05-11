@@ -31,6 +31,12 @@ const schema = Schema({
   passwordHash: String,
   gender: String,
   occupation: String,
+  confirmationCode: String,
+  regStatus: {
+    type: String,
+    enum: ["active", "inactive"],
+    default: "inactive"
+  },
   resume: String,
   applications: [
     {
@@ -47,7 +53,7 @@ const schema = Schema({
   membership: {
     type: String,
     enum: ["basic", "premium"],
-    default: "basic"
+    default: "basic",
   },
 });
 
