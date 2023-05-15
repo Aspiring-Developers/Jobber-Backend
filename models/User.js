@@ -12,12 +12,6 @@ const schema = Schema({
     required: true,
     minlength: 2,
   },
-  fullName: {
-    type: String,
-    default: function () {
-      return `${this.firstName} ${this.lastName}`;
-    },
-  },
   email: {
     type: String,
     required: true,

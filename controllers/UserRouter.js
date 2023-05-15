@@ -91,7 +91,7 @@ router.post("/login", async (request, response) => {
 router.post("/confirmReg", async (request, response) => {
   const { email, receivedCode } = request.body;
   const user = await User.findOne({ email });
-  
+
   if (user.regStatus === "active") {
     return response
       .status(404)
@@ -100,7 +100,7 @@ router.post("/confirmReg", async (request, response) => {
       })
       .end();
   }
-  
+
   if (!user) {
     return response
       .status(404)
@@ -124,6 +124,29 @@ router.post("/confirmReg", async (request, response) => {
     .status(400)
     .json({ error: "Invalid code or code has expired!" })
     .end();
+});
+
+router.patch("/:userId", async (request, response) => {
+  const body = request.body;
+  const userId = request.params.userId;
+
+  const updates = {}
+
+  Object.keys(body)
+    .filter((f) => body[f] !== "")
+    .forEach((f) => (updates[f] = body[f]));
+
+  if (Object.keys(updates).includes("membership")) {
+    return response.status(403).json({
+      error: "You have no permission to do so.",
+    });
+  }
+  try {
+    const user = await User.findByIdAndUpdate(userId, updates);
+  } catch (e) {
+    console.log(error.message);
+  }
+  return response.json({ message: "Update successful" });
 });
 
 module.exports = router;
